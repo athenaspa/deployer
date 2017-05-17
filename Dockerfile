@@ -1,17 +1,21 @@
-FROM php:7-alpine
+FROM php:7.1
 
-RUN curl -sS https://getcomposer.org/installer | php
+RUN curl -sS https://getcomposer.org/installer | php \
+    && mv composer.phar /usr/local/bin/composer \
+    && chmod +x /usr/local/bin/composer
 
-RUN mv composer.phar /usr/local/bin/composer
-
-RUN apk add --update \
+RUN apt-get update && apt-get install -y \
+    git \
+    patch \
+    unzip \
     zip \
     python \
-    python-dev \
-    py-pip \
-    build-base \
-  && rm -rf /var/cache/apk/*
+    python-dev
 
-RUN pip install --upgrade pip
+RUN docker-php-ext-install bcmath
 
-RUN pip install boto3==1.3.0
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN curl -o get-pip.py https://bootstrap.pypa.io/get-pip.py \
+    && python get-pip.py \
+    && pip install boto3==1.3.0
