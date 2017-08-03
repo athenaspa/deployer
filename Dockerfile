@@ -9,10 +9,12 @@ RUN apt-get update && apt-get install -y \
     patch \
     unzip \
     zip \
+    libzip-dev \
     python \
     python-dev
 
-RUN docker-php-ext-install bcmath zip
+RUN docker-php-ext-install bcmath \
+    && docker-php-ext-install zip
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
