@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
     python \
     python-dev
 
-RUN docker-php-ext-install bcmath
+RUN docker-php-ext-install bcmath zip
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
