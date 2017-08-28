@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-install bcmath \
     && docker-php-ext-install zip
 
-RUN docker-image-cleanup
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN curl -o get-pip.py https://bootstrap.pypa.io/get-pip.py \
     && python get-pip.py \
