@@ -1,4 +1,4 @@
-FROM php:7.1
+FROM php:7.2
 
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \
@@ -13,8 +13,7 @@ RUN apt-get update && apt-get install -y \
     python \
     python-dev
 
-RUN docker-php-ext-install bcmath \
-    && docker-php-ext-install zip
+RUN docker-php-ext-install bcmath zip
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
